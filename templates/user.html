@@ -32,45 +32,45 @@
             >
               Califica un vuelo
             </button>
-
+          </div>
             <div id="Reserva" class="tabcontent">
               <form action="" method="post">
                 {{ form.csrf_token }}
                 <div class="format">
-                <div class="mb-3 mr-4">
+                <div class="mb-3 mr-4 mt-1">
                     <div class="leadseccion mb-3 mr-2">
-                      {{ form.completeway.label}}
-                      {{ form.completeway()}}
+                      {{ form.roundTrip.label}}
+                      {{ form.roundTrip()}}
                     </div>
                   </div>
-                  <div class="mb-3 mr-4">
+                  <div class="mb-3 mr-4 mt-1">
                     <div class="leadseccion mb-3 mr-2">
-                      {{ form.oneway.label}}
-                      {{ form.oneway()}}
+                      {{ form.oneWay.label}}
+                      {{ form.oneWay()}}
                     </div>
                   </div>
                 </div>
                 <class class="format">
                 <p class="leadtitle text-orange mb-4 mr-2">¿A dónde viajas?</p>
                 <div class="form-group">
-                  <div class="leadseccion mb-3 mr-2">{{ form.fromway.label}}
-                    {{ form.fromway(class="form-control")}}
+                  <div class="leadseccion mb-3 mr-2">{{ form.depature.label}}
+                    {{ form.depature(class="form-control")}}
                   </div>
                 </div>
                 <div class="form-group">
-                  <div class="leadseccion mb-3 mr-2">{{ form.toway.label}}
-                    {{ form.toway(class="form-control")}}
+                  <div class="leadseccion mb-3 mr-2">{{ form.arrival.label}}
+                    {{ form.arrival(class="form-control")}}
                   </div>
                 </div>
                 <p class="leadtitle text-orange mb-4 mr-2">¿Cuándo viajas?</p>
                 <div class="form-group">
-                  <div class="leadseccion mb-3 mr-2">{{ form.departuredate.label}}
-                    {{ form.departuredate(class="form-control")}}
+                  <div class="leadseccion mb-3 mr-2">{{ form.depatureTime.label}}
+                    {{ form.depatureTime(class="form-control")}}
                   </div>
                 </div>
                 <div class="form-group">
-                  <div class="leadseccion mb-3 mr-2">{{ form.returndate.label}}
-                    {{ form.returndate(class="form-control")}}
+                  <div class="leadseccion mb-3 mr-2">{{ form.arrivalTime.label}}
+                    {{ form.arrivalTime(class="form-control")}}
                   </div>
                 </div>
                 <p class="leadtitle text-orange mb-4 mr-2">¿Cuántos viajan?</p>
@@ -79,7 +79,6 @@
                     {{ form.passengers(class="form-control")}}
                   </div>
                 </div>
-
               </class>
                 <div class="text-center">
                   <button class="btn" type="submit">
@@ -90,22 +89,46 @@
             </div>
 
             <div id="Gestiona" class="tabcontent">
-              <h3>News</h3>
-              <form>
-                <div class="row">
-                  <div class="col">
-                    <label type="text" class="form-control" placeholder="First name">
+              <form action="" method="post">
+                {{ form.csrf_token }}
+                <class class="format">
+                  <p class="leadtitle text-orange mb-4 mr-2">Consulta tu reserva fácil y rápido</p>
+                    <div class="form-group">
+                      <div class="leadseccion mb-3 mr-2">{{ form.idFlight.label}}
+                        {{ form.idFlight(class="form-control")}}
+                      </div>
+                    </div>
+                  <div class="form-group">
+                      <div class="leadseccion mb-3 mr-2">{{ form.depatureTime.label}}
+                        {{ form.depatureTime(class="form-control")}}
+                      </div>
+                  </div>             
+                  <div class="text-center">
+                    <button class="btn" type="submit">
+                      Buscar vuelo
+                    </button>
                   </div>
-                  <div class="col">
-                    <input type="text" class="form-control" placeholder="Last name">
-                  </div>
-                </div>
+              </class>
               </form>
             </div>
 
             <div id="Califica" class="tabcontent">
-              <h3>Contact</h3>
-              <p>Get in touch, or swing by for a cup of coffee.</p>
+              <form action="" method="post">
+                {{ form.csrf_token }}
+                <class class="format">
+                  <p class="leadtitle text-orange mb-4 mr-2">Califica un vuelo</p>
+                    <div class="form-group">
+                      <div class="leadseccion mb-3 mr-2">{{ form.idFlight.label}}
+                        {{ form.idFlight(class="form-control")}}
+                      </div>
+                    </div>           
+                  <div class="text-center">
+                    <button class="btn" type="submit">
+                      Buscar vuelo
+                    </button>
+                  </div>
+              </class>
+              </form>
             </div>
 
             <script>
@@ -130,8 +153,8 @@
         </div>
       </div>
     </div>
-  </div>
 </header>
 <!-- Aquí cierro el layout -->
 
 {% endblock body %}
+

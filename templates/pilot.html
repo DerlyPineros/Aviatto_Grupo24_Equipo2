@@ -1,0 +1,69 @@
+<!-- Aquí extiendo el layout -->
+{% extends 'layout.html' %} {% block body %}
+<!-- Header-->
+<header class="bg-white">
+  <div class="container px-7">
+    <div class="row gx-5">
+      <div class="col-lg-6">
+        <div class="text-center">
+          <h1 class="display-5 fw-bolder text-blue mb-2">
+            Conoce los vuelos que tienes asignados
+          </h1>
+          <!-- mb-2 de esta frase a la siguiente linea -->
+          <p class="lead text-blue mb-4">¡Buen viaje!</p>
+          <div class="text-left">
+            <!-- Tab links -->
+            <button
+              class="tablink"
+              onclick="openPage('Vuelos', this, '#8c0d0d')"
+              id="defaultOpen"
+            >
+              Vuelos asignados
+            </button>
+          </div>
+
+            <div id="Vuelos" class="tabcontent">
+              <form action="" method="post">
+                {{ form.csrf_token }}
+                <class class="format">
+                  <p class="leadtitle text-orange mb-4 mr-2">Consulta tu reserva fácil y rápido</p>
+                    <div class="form-group">
+                      <div class="leadseccion mb-3 mr-2">{{ form.idPilot.label}}
+                        {{ form.idPilot(class="form-control")}}
+                      </div>
+                    </div>      
+                  <div class="text-center">
+                    <button class="btn" type="submit">
+                      Buscar vuelos
+                    </button>
+                  </div>
+              </class>
+              </form>
+            </div>
+
+            <script>
+              function openPage(pageName, elmnt, color) {
+                var i, tabcontent, tablinks;
+                tabcontent = document.getElementsByClassName("tabcontent");
+                for (i = 0; i < tabcontent.length; i++) {
+                  tabcontent[i].style.display = "none";
+                }
+                tablinks = document.getElementsByClassName("tablink");
+                for (i = 0; i < tablinks.length; i++) {
+                  tablinks[i].style.backgroundColor = "";
+                }
+                document.getElementById(pageName).style.display = "block";
+                elmnt.style.backgroundColor = color;
+              }
+
+              // Get the element with id="defaultOpen" and click on it
+              document.getElementById("defaultOpen").click();
+            </script>
+          </div>
+        </div>
+      </div>
+    </div>
+</header>
+<!-- Aquí cierro el layout -->
+
+{% endblock body %}

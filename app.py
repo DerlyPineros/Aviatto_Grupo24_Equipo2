@@ -21,3 +21,12 @@ def user():
     form = BookFlightForm()
     return render_template('user.html', form=form)
 
+""" @app.route("/user", methods=["GET", "POST"])
+def userSearch():
+    gestiona = forms.forms.SearchFlightForm()
+    return render_template("user.html",form=gestiona) """
+
+@app.route('/pilot', methods=["GET", "POST"])
+def pilot():
+    form = SearchFlightPilotForm()
+    return render_template("pilot.html",form=form)

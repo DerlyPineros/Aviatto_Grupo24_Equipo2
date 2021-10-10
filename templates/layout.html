@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aviatto Flights</title>
+    <link rel="stylesheet" href="../static/css/userstyle.css" type="text/css" />
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-white">
+        <class class="container px-7">
+          <a class="navbar-brand" href="#!"
+            ><img src="../static/images/logo.png"
+          /></a>
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="#!">Cerrar sesión</a>
+            </li>
+          </ul>
+        </class>
+      </nav>
+      <!-- Creo el fragmento para extender el nav -->
+      {% block body %}
+      <!-- fragmento que va a ir dentro de este bloque -->
+      {% endblock body %}
+    </body>
+</html>

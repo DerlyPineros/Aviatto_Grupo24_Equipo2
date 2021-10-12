@@ -12,18 +12,16 @@ class BookFlightForm(FlaskForm):
     depatureTime = DateField("Salida", validators=[DataRequired()], format='%d/%m/%y')
     arrivalTime = DateField("Regreso", validators=[DataRequired()], format='%d/%m/%y')
     passengers = SelectField(u'Pasajeros', validators=[DataRequired()], choices=[('1', '1'), ('2', '2'), ('3', '3'), ('4', '4'), ('5', '5') ])
+
+""" Crear formulario Search Flight """
+class SearchFlightForm(FlaskForm):
     idFlight = StringField(u'Código de vuelo', validators=[DataRequired()])
     depatureTime = DateField("Salida", validators=[DataRequired()], format='%d/%m/%y')
 
-""" Crear formulario Search Flight """
-""" class SearchFlightForm(FlaskForm):
-    idFlight = StringField(u'Código de vuelo', validators=[DataRequired()])
-    depatureTime = DateField("Salida", validators=[DataRequired()], format='%d/%m/%y') """
-
 """ Crear formulario Rate Flight """
-""" class SearchFlightForm(FlaskForm):
-    idFlight = StringField(u'Codigo de vuelo', validators=[DataRequired()]) """
+class RateFlightForm(FlaskForm):
+    idFlight = StringField(u'Código de vuelo', validators=[DataRequired()])
 
 """ Crear formulario Search Flight Pilot """
 class SearchFlightPilotForm(FlaskForm):
-    idPilot = StringField(u'Codigo de piloto', validators=[DataRequired()])
+    idPilot = StringField(u'Código de piloto', validators=[DataRequired()])

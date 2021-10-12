@@ -15,7 +15,13 @@
           </p>
           <div class="d-grid gap-3 d-sm-flex btnali">
             <a class="btn btn-primary btn-lg px-4 me-sm-3" href="#features"
-              >Consulta tus vuelos</a
+              >Reserva tu vuelo</a
+            >
+            <a class="btn btn-outline-light btn-lg px-4" href="#!"
+              >Gestiona tu reserva</a
+            >
+            <a class="btn btn-outline-light btn-lg px-4" href="#!"
+              >Califica un vuelo</a
             >
           </div>
         </div>
@@ -25,33 +31,40 @@
 </header>
 
 <div class="container px-7">
-  <div class="card" style="width: 75rem">
-    <div class="card-body">
-      <div class="row gx-4 justify-content-center">
-        <h2 class="text-center">¡Ingresa tu código de piloto para ver el detalle de tus vuelos asignados!</h2>
+    <div class="card" style="width: 75rem">
+      <div class="card-body">
+        <div class="row gx-4 justify-content-center">
+          <h2 class="text-center">
+            ¡Ingresa el código de vuelo y califica tu experiencia!
+          </h2>
           <form action="" method="post">
             {{ form.csrf_token }}
             <class class="format">
-              <p class="leadtitle text-orange mb-4 mr-2">Consulta tus vuelos</p>
+              <p class="leadtitle text-orange mb-4 mr-2">
+                Consulta tu reserva fácil y rápido
+              </p>
               <div class="form-group">
-                <div class="leadseccion mb-3 mr-2">
-                  {{ form.idPilot.label}} {{
-                  form.idPilot(class="form-control")}}
+                <div class="leadseccion mb-3 mr-2">{{ form.idFlight.label}}
+                  {{ form.idFlight(class="form-control")}}
                 </div>
               </div>
+              <div class="text-center">
+                <button class="btn" type="submit">Buscar vuelo</button>
+              </div>
             </class>
-            <div class="text-center">
-              <button class="btn" type="submit">Buscar vuelos</button>
-            </div>
           </form>
         </div>
       </div>
     </div>
-</div>
-<footer class="py-5 bg-dark">
-  <div class="container px-3"><p class="m-0 text-center text-white">Copyright Your Website 2021</p></div>
-</footer>
+  </div>
+  <footer class="py-5 bg-dark">
+    <div class="container px-3">
+      <p class="m-0 text-center text-white">Copyright Your Website 2021</p>
+    </div>
+  </footer>
 
   <!-- Aquí cierro el layout -->
 
   {% endblock body %}
+
+

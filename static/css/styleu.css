@@ -91,12 +91,7 @@ body {
 }
 
 .btn:hover {
-  color: #000;
-  background-color: #f8f9fa;
-  border-color: #f8f9fa;
-}
-
-.btn input:checked {
+  color: #fff;
   background-color: #8c0d0d;
   border-color: #8c0d0d;
 }
@@ -722,6 +717,18 @@ ul ol {
   border-radius: 0.6rem;
   margin-bottom: 2rem;
 }
+.card1 {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: rgba(165, 165, 165, 0.4);
+  background-clip: border-box;
+  border: 1px solid rgba(165, 165, 165, 0.4);
+  border-radius: 0.6rem;
+  margin-bottom: 2rem;
+}
 .card > hr {
   margin-right: 0;
   margin-left: 0;
@@ -761,6 +768,8 @@ ul ol {
 
 .card-text:last-child {
   margin-bottom: 0;
+  font-family: var(--bs-body-font-family)
+  
 }
 
 .card-link + .card-link {

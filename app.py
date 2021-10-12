@@ -16,22 +16,26 @@ def start():
     return render_template('index.html')
 
 """ Ruta vista principal usuario (Tengo el metodo get y post para el form)"""
-@app.route('/booking/', methods=['GET','POST'])
-def booking():
-    form = BookFlightForm()
-    return render_template('booking.html', form=form)
+@app.route("/user/", methods=['GET','POST'])
+def user():
+    return render_template('user.html')
 
-@app.route("/searchflight", methods=["GET", "POST"])
+@app.route("/user/bookFlight", methods=["GET", "POST"])
+def bookFlight():
+    form = BookFlightForm()
+    return render_template('bookFlight.html', form=form)
+
+@app.route("/user/searchFlight", methods=["GET", "POST"])
 def searchFlight():
     form = SearchFlightForm()
     return render_template('searchFlight.html', form=form)
 
-@app.route("/rateflight", methods=["GET", "POST"])
+@app.route("/user/rateFlight", methods=["GET", "POST"])
 def rateFlight():
     form = RateFlightForm()
     return render_template('rateFlight.html', form=form)
 
-@app.route('/pilot', methods=["GET", "POST"])
+@app.route("/pilot", methods=["GET", "POST"])
 def pilot():
     form = SearchFlightPilotForm()
     return render_template("pilot.html",form=form)

@@ -35,6 +35,10 @@ def rateFlight():
     form = RateFlightForm()
     return render_template('rateFlight.html', form=form)
 
+@app.route("/user/flights")
+def flights():
+    return render_template('flights.html')
+    
 @app.route("/pilot", methods=["GET", "POST"])
 def pilot():
     form = SearchFlightPilotForm()

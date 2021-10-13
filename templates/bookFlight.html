@@ -26,18 +26,6 @@
         <h2 class="text-center">¡Increíbles descuentos para destinos nacionales!</h2>
           <form action="" method="post">
             {{ form.csrf_token }}
-            <div class="format">
-              <div class="mb-3 mr-4 mt-1">
-                <div class="leadseccion mb-3 mr-2">
-                  {{ form.roundTrip.label}} {{ form.roundTrip()}}
-                </div>
-              </div>
-              <div class="mb-3 mr-4 mt-1">
-                <div class="leadseccion mb-3 mr-2">
-                  {{ form.oneWay.label}} {{ form.oneWay()}}
-                </div>
-              </div>
-            </div>
             <class class="format">
               <p class="leadtitle text-orange mb-4 mr-2">¿A dónde viajas?</p>
               <div class="form-group">
@@ -57,12 +45,6 @@
                 <div class="leadseccion mb-3 mr-2">
                   {{ form.depatureTime.label}} {{
                   form.depatureTime(class="form-control")}}
-                </div>
-              </div>
-              <div class="form-group">
-                <div class="leadseccion mb-3 mr-2">
-                  {{ form.arrivalTime.label}} {{
-                  form.arrivalTime(class="form-control")}}
                 </div>
               </div>
               <p class="leadtitle text-orange mb-4 mr-2">¿Cuántos viajan?</p>

@@ -7,21 +7,18 @@
       <div class="col-lg-6">
         <div class="text-center">
           <h1 class="display-5 fw-bolder text-blue mb-2">
-            ¿Pensando en tu viaje soñado?
+            Módulo principal de configuraciones
           </h1>
           <!-- mb-2 de esta frase a la siguiente linea -->
           <p class="lead text-blue mb-4">
-            Reserva tu viaje ahora y recibe un 50% de descuento
+            ¡Selecciona una opción y gestiona!
           </p>
           <div class="d-grid gap-3 d-sm-flex btnali">
-            <a class="btn btn-outline-light btn-lg px-4" href="{{ url_for('bookFlight') }}"
-              >Gestiona tu reserva</a
+            <a class="btn btn-primary btn-lg px-4 me-sm-3" href="{{ url_for('addFlight') }}"
+              >Añadir vuelos</a
             >
-            <a class="btn btn-outline-light btn-lg px-4" href="{{ url_for('searchFlight') }}"
-              >Gestiona tu reserva</a
-            >
-            <a class="btn btn-outline-light btn-lg px-4" href="{{ url_for('rateFlight') }}"
-              >Califica un vuelo</a
+            <a class="btn btn-outline-light btn-lg px-4" href=""
+              >Gestionar usuarios</a
             >
           </div>
         </div>
@@ -67,4 +64,3 @@
   <!-- Aquí cierro el layout -->
 
   {% endblock body %}
-

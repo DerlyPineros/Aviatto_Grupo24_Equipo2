@@ -1,6 +1,6 @@
 """ Importar wtf """
 from flask_wtf import FlaskForm
-from wtforms.fields.core import BooleanField, DateField, RadioField, SelectField, StringField, DateField
+from wtforms.fields.core import BooleanField, DateField, RadioField, SelectField, StringField, DateField, IntegerField
 from wtforms.validators import DataRequired
 
 """ Crear formulario BookFlight """
@@ -21,4 +21,12 @@ class RateFlightForm(FlaskForm):
 
 """ Crear formulario Search Flights Pilot """
 class SearchFlightPilotForm(FlaskForm):
+    idPilot = StringField(u'Código de piloto', validators=[DataRequired()])
+
+""" Crear formulario Add Flights """
+class AddFlightForm(FlaskForm):
+    flightPlane = StringField(u'Avión', validators=[DataRequired()])
+    depature = SelectField(u'Desde', validators=[DataRequired()], choices=[('1', ''),('2', 'Barranquilla'), ('3', 'Bogotá'), ('4', 'Bucaramanga'), ('5', 'Cartagena'), ('6', 'Medellín') ])
+    depatureTime = DateField("Salida", validators=[DataRequired()], format='%d/%m/%y')
+    capacity = IntegerField(u'Capacidad', validators=[DataRequired()])
     idPilot = StringField(u'Código de piloto', validators=[DataRequired()])

@@ -3,43 +3,54 @@ import os
 """ Importar los formularios """
 from forms.forms import *
 """ Importar flask """
-from flask import Flask, render_template
+from flask import Flask, render_template, redirect, url_for
 from forms.forms import BookFlightForm
 
 app = Flask(__name__)
 """ metodo para usar el token """
 app.secret_key = os.urandom(24)
 
-""" Ruta inicial """
 @app.route('/')
-def start():
+def index():
     return render_template('index.html')
 
-""" Ruta vista principal usuario (Tengo el metodo get y post para el form)"""
-@app.route("/user/", methods=['GET','POST'])
+@app.route('/signUp')
+def signup():
+    return render_template('signup.html')
+
+@app.route('/user/')
 def user():
     return render_template('user.html')
 
-@app.route("/user/bookFlight", methods=["GET", "POST"])
+@app.route('/bookFlight', methods=["GET", "POST"])
 def bookFlight():
     form = BookFlightForm()
     return render_template('bookFlight.html', form=form)
 
-@app.route("/user/searchFlight", methods=["GET", "POST"])
+@app.route('/searchFlight', methods=["GET", "POST"])
 def searchFlight():
     form = SearchFlightForm()
     return render_template('searchFlight.html', form=form)
 
-@app.route("/user/rateFlight", methods=["GET", "POST"])
+@app.route('/rateFlight', methods=["GET", "POST"])
 def rateFlight():
     form = RateFlightForm()
     return render_template('rateFlight.html', form=form)
 
-@app.route("/user/flights")
+@app.route('/flights')
 def flights():
     return render_template('flights.html')
     
-@app.route("/pilot", methods=["GET", "POST"])
+@app.route('/pilot', methods=["GET", "POST"])
 def pilot():
     form = SearchFlightPilotForm()
     return render_template("pilot.html",form=form)
+
+@app.route('/admin')
+def admin():
+    return render_template('admin.html')
+
+@app.route('/addFlight', methods=['GET','POST'])
+def addFlight():
+    form = AddFlightForm()
+    return render_template('addFlight.html', form=form)

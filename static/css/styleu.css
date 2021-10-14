@@ -830,7 +830,7 @@ ul ol {
   flex-direction: column;
   min-width: 0;
   word-wrap: break-word;
-  background-color: rgba(206, 206, 206, 0.4);
+  background-color: rgba(228, 228, 228, 0.4);
   background-clip: border-box;
   border: 1px solid transparent;
   border-radius: 0.6rem;

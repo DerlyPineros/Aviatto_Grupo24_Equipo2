@@ -30,3 +30,18 @@ class AddFlightForm(FlaskForm):
     depatureTime = DateField("Salida", validators=[DataRequired()], format='%d/%m/%y')
     capacity = IntegerField(u'Capacidad', validators=[DataRequired()])
     idPilot = StringField(u'Código de piloto', validators=[DataRequired()])
+
+""" Crear formulario Add User """
+class AddUserForm(FlaskForm):
+    Name = StringField(u'Nombre', validators=[DataRequired()])
+    emailUser = StringField(u'E-mail', validators=[DataRequired()])
+    userName = StringField(u'Usuario', validators=[DataRequired()])
+    passwordUser = StringField(u'Contraseña', validators=[DataRequired()])
+
+""" Crear formulario Edit User """
+class EditUserForm(FlaskForm):
+    userName = StringField(u'Usuario', validators=[DataRequired()])
+
+""" Crear formulario Delete User """
+class DeleteUserForm(FlaskForm):
+    userName = StringField(u'Usuario', validators=[DataRequired()])

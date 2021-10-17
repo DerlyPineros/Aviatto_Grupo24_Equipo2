@@ -54,3 +54,22 @@ def admin():
 def addFlight():
     form = AddFlightForm()
     return render_template('addFlight.html', form=form)
+
+@app.route('/addUser', methods=['GET','POST'])
+def addUser():
+    form = AddUserForm()
+    return render_template('addUser.html', form=form)
+
+@app.route('/manageUser', methods=['GET'])
+def manageUser():
+    return render_template('manageUser.html')
+
+@app.route('/editUser', methods=['GET','POST'])
+def editUser():
+    form = EditUserForm()
+    return render_template('editUser.html', form=form)
+
+@app.route('/deleteUser', methods=['GET','POST'])
+def deleteUser():
+    form = DeleteUserForm()
+    return render_template('deleteUser.html', form=form)

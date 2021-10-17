@@ -1,0 +1,60 @@
+<!-- Aquí extiendo el layout -->
+{% extends 'layout.html' %} {% block body %}
+<!-- Header-->
+<link
+  rel="stylesheet"
+  href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+  integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+  crossorigin="anonymous"
+/>
+<header class="bg-white">
+  <div class="container px-7">
+    <div class="row gx-5">
+      <div class="col-lg-6">
+        <div class="text-center">
+          <h1 class="display-5 fw-bolder text-blue mb-2">
+            Módulo principal de configuraciones
+          </h1>
+          <!-- mb-2 de esta frase a la siguiente linea -->
+          <p class="lead text-blue mb-4">
+            ¡Selecciona una opción y gestiona!
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="container px-7">
+  <div class="card" style="width: 75rem">
+    <div class="card-body">
+      <div class="row gx-4 justify-content-center">
+        <h2 class="text-center">¿Qué desea hacer?</h2>
+          <class action="">
+            <div class="text-center">
+                <button class="btn" type="submit">Crear usuario
+                <i class="fas fa-user-plus"></i>
+                </button>
+            </div>
+            <div class="text-center">
+                <button class="btn" type="submit">Editar usuario
+                    <i class="fas fa-user-pen"></i>
+                </button>
+              </div>
+              <div class="text-center">
+                <button class="btn" type="submit">Eliminar usuario
+                    <i class="fas fa-user-minus"></i>
+                </button>
+              </div>
+          </class>
+        </div>
+      </div>
+    </div>
+</div>
+<footer class="py-5 bg-dark">
+  <div class="container px-3"><p class="m-0 text-center text-white">Copyright Your Website 2021</p></div>
+</footer>
+
+  <!-- Aquí cierro el layout -->
+
+  {% endblock body %}

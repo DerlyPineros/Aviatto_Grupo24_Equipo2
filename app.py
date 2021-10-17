@@ -5,6 +5,8 @@ from forms.forms import *
 """ Importar flask """
 from flask import Flask, render_template, redirect, url_for
 from forms.forms import BookFlightForm
+""" Para conectar con la base de datos """
+from db import *
 
 app = Flask(__name__)
 """ metodo para usar el token """

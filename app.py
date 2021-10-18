@@ -7,14 +7,44 @@ from flask import Flask, render_template, redirect, url_for
 from forms.forms import BookFlightForm
 """ Para conectar con la base de datos """
 from db import *
+""" Importar helpers """
+from flask.helpers import flash
 
 app = Flask(__name__)
 """ metodo para usar el token """
 app.secret_key = os.urandom(24)
 
-@app.route('/')
+@app.route('/', methods=['GET'])
 def index():
-    return render_template('index.html')
+    return render_template ('index.html')
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    error = ""
+    form = LoginForm()
+    if(form.validate_on_submit()):                
+        usuario = form.usuario.data
+        contrasena = form.contraseña.data
+        sql = f'SELECT * FROM user WHERE usuario = "{usuario}"'
+        db = get_db()
+        cursorObj = db.cursor()
+        cursorObj.execute(sql)       
+        usuarios = cursorObj.fetchall()
+        if len(usuarios) > 0:
+            contrasenaHas = usuarios[0][2]
+            if check_password_hash(contrasenaHas, contrasena):            
+                session.clear()
+                session['id'] = usuarios[0][0]
+                session['user'] = usuarios[0][1]
+                session['password'] = contrasenaHas            
+                return redirect(url_for('index'))
+            else:
+                flash(f'Clave incorrecta')
+                return redirect(url_for('login'))
+        else:
+                flash(f'El uusario ingresado no existe')             
+    return render_template("login.html", form=form)
 
 @app.route('/signUp')
 def signup():

@@ -1,6 +1,7 @@
 """ Importar wtf """
 from flask_wtf import FlaskForm
 from wtforms.fields.core import BooleanField, DateField, RadioField, SelectField, StringField, DateField, IntegerField
+from wtforms import PasswordField
 from wtforms.validators import DataRequired
 
 """ Crear formulario BookFlight """
@@ -45,3 +46,9 @@ class EditUserForm(FlaskForm):
 """ Crear formulario Delete User """
 class DeleteUserForm(FlaskForm):
     userName = StringField(u'Usuario', validators=[DataRequired()])
+
+""" Crear formulario Login """
+class LoginForm(FlaskForm):
+    usuario = StringField('Usuario', validators=[DataRequired(message="Campo obligatorio")])
+    contraseña = PasswordField('Contraseña', validators=[DataRequired(message="Campo Obligatorio")])
+    recordar = BooleanField('Recordar usuario')

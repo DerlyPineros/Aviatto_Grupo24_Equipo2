@@ -43,7 +43,7 @@ def login():
                 flash(f'Clave incorrecta')
                 return redirect(url_for('login'))
         else:
-                flash(f'El uusario ingresado no existe')             
+                flash(f'El usuario ingresado no existe')             
     return render_template("login.html", form=form)
 
 @app.route('/signUp')

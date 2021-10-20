@@ -3,7 +3,7 @@ import os
 """ Importar los formularios """
 from forms.forms import *
 """ Importar flask """
-from flask import Flask, render_template, redirect, url_for
+from flask import Flask, render_template, redirect, url_for, request
 from forms.forms import BookFlightForm
 """ Para conectar con la base de datos """
 from db import *
@@ -76,6 +76,13 @@ def searchFlight():
 @app.route('/rateFlight', methods=["GET", "POST"])
 def rateFlight():
     form = RateFlightForm()
+    if request.method == 'POST':
+        idFlight = request.form['idFlight']
+        rate = request.form['rate']
+        comment = request.form['comment']
+        db = get_db()
+        db.execute('INSERT INTO Rate (idFlight, rate, comment) VALUES(?,?,?)',(idFlight, rate, comment))
+        db.commit()
     return render_template('rateFlight.html', form=form)
 
 @app.route('/flights')

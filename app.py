@@ -59,6 +59,15 @@ def bookFlight():
     form = BookFlightForm()
     return render_template('bookFlight.html', form=form)
 
+@app.route('/selectBooking')
+def selectBooking():
+    sql = "SELECT * FROM Flight"
+    db = get_db()
+    cursorObj = db.cursor()
+    cursorObj.execute(sql)
+    flight = cursorObj.fetchall()
+    return render_template('selectBooking.html', flight=flight)
+
 @app.route('/searchFlight', methods=["GET", "POST"])
 def searchFlight():
     form = SearchFlightForm()

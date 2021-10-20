@@ -1,0 +1,63 @@
+<!-- Aquí extiendo el layout -->
+{% extends 'layout.html' %} {% block body %}
+<!-- Header-->
+<header class="bg-white">
+  <div class="container px-7">
+    <div class="row gx-5">
+      <div class="col-lg-6">
+        <div class="text-center">
+          <h1 class="display-5 fw-bolder text-blue mb-2">
+            ¿Pensando en tu viaje soñado?
+          </h1>
+          <!-- mb-2 de esta frase a la siguiente linea -->
+          <p class="lead text-blue mb-4">
+            Reserva tu viaje ahora y recibe un 50% de descuento
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="container px-7 d-grid gap-3 d-sm-flex format">
+    <div class="justify-content-center">
+        <table class="text-blue">
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>Depature</th>
+                    <th>Arrival</th>
+                    <th>Depature Time</th>
+                    <th>Arrival Time</th>
+                    <th>Plane</th>
+                    <th>Capacity</th>
+                    <th>Status</th>
+                    <th>Pilot</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for f in flight %}
+                <tr>
+                    <td>{{f[0]}}</td>
+                    <td>{{f[1]}}</td>
+                    <td>{{f[2]}}</td>
+                    <td>{{f[3]}}</td>
+                    <td>{{f[4]}}</td>
+                    <td>{{f[5]}}</td>
+                    <td>{{f[6]}}</td>
+                    <td>{{f[7]}}</td>
+                    <td>{{f[8]}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<footer class="py-5 bg-dark">
+  <div class="container px-3"><p class="m-0 text-center text-white">Copyright Your Website 2021</p></div>
+</footer>
+
+  <!-- Aquí cierro el layout -->
+
+  {% endblock body %}

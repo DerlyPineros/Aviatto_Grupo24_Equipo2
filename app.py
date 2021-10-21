@@ -1,5 +1,6 @@
 """ Para poder trabajar con tokens """
 import os
+""" from typing_extensions import Required """
 """ Importar los formularios """
 from forms.forms import *
 """ Importar flask """
@@ -9,6 +10,8 @@ from forms.forms import BookFlightForm
 from db import *
 """ Importar helpers """
 from flask.helpers import flash
+""" Importar Hash """
+from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
 """ metodo para usar el token """
@@ -28,14 +31,34 @@ def login():
         password = form.password.data
         cursorObj = db.cursor()
         cursorObj.execute('SELECT * FROM Person WHERE user = ? and password = ?', (user, password))
-        flash(f'Bienvenido(a) {user}')
-        return redirect(url_for('index'))
-    return render_template('login.html', form=form)
+        users = cursorObj.fetchall()
+        if len(user) >0:
+            flash(f'Bienvenido(a) {user}')
+            return redirect(url_for('index'))
+        else:
+            flash(f'Usuario o clave inválida')
+            return redirect(url_for('login'))
+    return render_template("login.html", form=form)
 
-@app.route('/signUp')
-def signup():
-    form = AddUserForm()
-
+@app.route('/signUp', methods=['GET', 'POST'])
+def signUp():
+    form = SignUpForm()
+    if request.method == 'POST':
+        Name = request.form['Name']
+        userName = request.form['userName']
+        userIdtf = request.form['userIdtf']
+        emailUser = request.form['emailUser']
+        passwordUser = request.form['passwordUser']
+        passwordUserHas = generate_password_hash(passwordUser)
+        sql = 'INSERT INTO Person (user, password) VALUES (?, ?) AND INSERT INTO Info (name, identification, email) VALUES (?, ?, ?)'
+        db = get_db()
+        result = db.execute(sql, (user, passwordUserHas,)).rowcount
+        db.commit()
+        if result!=0:
+            flash('Registro exitoso')
+        else:
+            flash('Woops! Hubo un error. Intenta nuevamente')
+    return render_template('signUp.html', form=form)
 
 @app.route('/user/')
 def user():

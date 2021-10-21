@@ -1,4 +1,4 @@
-""" Para poder trabajar con tokens """
+""" Para trabajar con tokens """
 import os
 """ Importar los formularios """
 from forms.forms import *
@@ -18,7 +18,6 @@ app.secret_key = os.urandom(24)
 def index():
     return render_template ('index.html')
 
-
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
@@ -36,29 +35,29 @@ def login():
 def signup():
     form = AddUserForm()
 
-
 @app.route('/user/')
 def user():
     return render_template('user.html')
 
-@app.route('/bookFlight', methods=["GET", "POST"])
+@app.route('/bookFlight')
 def bookFlight():
     form = BookFlightForm()
-    return render_template('bookFlight.html', form=form)
-
-@app.route('/selectBooking')
-def selectBooking():
     sql = "SELECT * FROM Flight"
     db = get_db()
     cursorObj = db.cursor()
     cursorObj.execute(sql)
     flight = cursorObj.fetchall()
-    return render_template('selectBooking.html', flight=flight)
+    return render_template('bookFlight.html',form=form, flight=flight)
 
 @app.route('/searchFlight', methods=["GET", "POST"])
 def searchFlight():
     form = SearchFlightForm()
-    return render_template('searchFlight.html', form=form)
+    sql = "SELECT * FROM Flight INNER JOIN Status ON Status.name = Flight.idStatus"
+    db = get_db()
+    cursorObj = db.cursor()
+    cursorObj.execute(sql)
+    flight = cursorObj.fetchall()
+    return render_template('searchFlight.html', form=form, flight=flight)
 
 @app.route('/rateFlight', methods=["GET", "POST"])
 def rateFlight():
@@ -70,6 +69,8 @@ def rateFlight():
         db = get_db()
         db.execute('INSERT INTO Rate (idFlight, rate, comment) VALUES(?,?,?)',(idFlight, rate, comment))
         db.commit()
+        mensajeExitoso = "Haz enviado una calificación"
+        return redirect(url_for('rateFlight', mensajeExitoso=mensajeExitoso))
     return render_template('rateFlight.html', form=form)
 
 @app.route('/flights')
@@ -79,6 +80,14 @@ def flights():
 @app.route('/pilot', methods=["GET", "POST"])
 def pilot():
     form = SearchFlightPilotForm()
+    if(form.validate_on_submit()):
+        idPerson = form.idPerson.data
+        print("Hola mundo", idPerson)
+        db = get_db()
+        cursorObj = db.cursor()
+        cursorObj.execute('SELECT * FROM Flight WHERE idPerson = ?',(idPerson,))
+        flights = cursorObj.fetchall()
+        print(flights)
     return render_template("pilot.html",form=form)
 
 @app.route('/admin')

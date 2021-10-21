@@ -24,7 +24,7 @@ class RateFlightForm(FlaskForm):
 
 """ Crear formulario Search Flights Pilot """
 class SearchFlightPilotForm(FlaskForm):
-    idPilot = StringField(u'Código de piloto', validators=[DataRequired()])
+    idPerson = IntegerField(u'Código de piloto', validators=[DataRequired()])
 
 """ Crear formulario Add Flights """
 class AddFlightForm(FlaskForm):

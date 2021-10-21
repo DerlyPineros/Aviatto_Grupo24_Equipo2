@@ -38,12 +38,6 @@
                 form.idFlight(class="form-control")}}
               </div>
             </div>
-            <div class="form-group">
-              <div class="leadseccion mb-3 mr-2">
-                {{ form.depatureTime.label}} {{
-                form.depatureTime(class="form-control")}}
-              </div>
-            </div>
             <div class="text-center">
               <button class="btn" type="submit">Buscar vuelo</button>
             </div>
@@ -53,6 +47,44 @@
     </div>
   </div>
 </div>
+
+<div class="container px-7">
+  <div class="row gx-5">
+      <div class="text-center">
+        <h1 class="display-5 fw-bolder text-blue mb-4">
+          ¡Aquí está la información de tu reserva!
+        </h1>
+      </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="justify-content-center">
+      <table class="table table-hover text-blue">
+          <thead class="table-dark">
+              <tr>
+                  <th>Salida</th>
+                  <th>Destino</th>
+                  <th>Fecha de Salida</th>
+                  <th>Fecha de Destino</th>
+                  <th>Status</th>
+              </tr>
+          </thead>
+          <tbody>
+              {% for f in flight %}
+              <tr class="text-center">
+                  <td>{{f[1]}}</td>
+                  <td>{{f[2]}}</td>
+                  <td>{{f[3]}}</td>
+                  <td>{{f[4]}}</td>
+                  <td>{{f[7]}}</td>
+              </tr>
+              {% endfor %}
+          </tbody>
+      </table>
+  </div>
+</div>
+
 <footer class="py-5 bg-dark">
   <div class="container px-3">
     <p class="m-0 text-center text-white">Copyright Your Website 2021</p>

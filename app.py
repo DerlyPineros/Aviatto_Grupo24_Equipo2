@@ -97,6 +97,18 @@ def admin():
 @app.route('/addFlight', methods=['GET','POST'])
 def addFlight():
     form = AddFlightForm()
+    if request.method == 'POST':
+        depature = request.form['depature']
+        arrival = request.form['arrival']
+        depatureTime = request.form['depatureTime']
+        arrivalTime = request.form['arrivalTime']
+        plane = request.form['plane']
+        capacity = request.form['capacity']
+        idStatus = request.form['idStatus']
+        idPerson = request.form['idPerson']
+        db = get_db()
+        db.execute('INSERT INTO Flight (depature, arrival, depatureTime, arrivalTime, plane, capacity, idStatus, idPerson) VALUES(?,?,?,?,?,?,?,?)',(depature, arrival, depatureTime, arrivalTime, plane, capacity, idStatus, idPerson))
+        db.commit()
     return render_template('addFlight.html', form=form)
 
 @app.route('/addUser', methods=['GET','POST'])

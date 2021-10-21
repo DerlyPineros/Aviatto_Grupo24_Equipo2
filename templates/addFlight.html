@@ -24,19 +24,19 @@
     <div class="card-body">
       <div class="row gx-4 justify-content-center">
         <h2 class="text-center">¡Estás a punto de crear un vuelo!</h2>
-          <form action="" method="post">
+          <form action="{{url_for('addFlight')}}" method="post">
             {{ form.csrf_token }}
             <class class="format">
               <div class="form-group">
                 <div class="leadseccion mb-3 mr-2">
-                  {{ form.flightPlane.label}} {{
-                  form.flightPlane(class="form-control")}}
+                  {{ form.depature.label}} {{
+                  form.depature(class="form-control")}}
                 </div>
               </div>
               <div class="form-group">
                 <div class="leadseccion mb-3 mr-2">
-                  {{ form.depature.label}} {{
-                  form.depature(class="form-control")}}
+                  {{ form.arrival.label}} {{
+                  form.arrival(class="form-control")}}
                 </div>
               </div>
               <div class="form-group">
@@ -47,14 +47,32 @@
               </div>
               <div class="form-group">
                 <div class="leadseccion mb-3 mr-2">
+                  {{ form.arrivalTime.label}} {{
+                  form.arrivalTime(class="form-control")}}
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="leadseccion mb-3 mr-2">
+                  {{ form.plane.label}} {{
+                  form.plane(class="form-control")}}
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="leadseccion mb-3 mr-2">
                   {{ form.capacity.label}} {{
                   form.capacity(class="form-control")}}
                 </div>
               </div>
               <div class="form-group">
                 <div class="leadseccion mb-3 mr-2">
-                  {{ form.idPilot.label}} {{
-                  form.idPilot(class="form-control")}}
+                  {{ form.idStatus.label}} {{
+                  form.idStatus(class="form-control")}}
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="leadseccion mb-3 mr-2">
+                  {{ form.idPerson.label}} {{
+                  form.idPerson(class="form-control")}}
                 </div>
               </div>
             </class>

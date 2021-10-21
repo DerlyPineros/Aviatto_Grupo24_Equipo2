@@ -36,8 +36,7 @@ class AddFlightForm(FlaskForm):
 
 """ Crear formulario Add User """
 class AddUserForm(FlaskForm):
-    Name = StringField(u'Nombre', validators=[DataRequired()])
-    emailUser = StringField(u'E-mail', validators=[DataRequired()])
+    name = StringField(u'Nombre', validators=[DataRequired()])
     userName = StringField(u'Usuario', validators=[DataRequired()])
     passwordUser = StringField(u'Contraseña', validators=[DataRequired()])
 
@@ -51,6 +50,6 @@ class DeleteUserForm(FlaskForm):
 
 """ Crear formulario Login """
 class LoginForm(FlaskForm):
-    usuario = StringField('Usuario', validators=[DataRequired(message="Campo obligatorio")])
-    contraseña = PasswordField('Contraseña', validators=[DataRequired(message="Campo Obligatorio")])
+    user = StringField('Usuario', validators=[DataRequired(message="Campo obligatorio")])
+    password = PasswordField('Contraseña', validators=[DataRequired(message="Campo Obligatorio")])
     recordar = BooleanField('Recordar usuario')

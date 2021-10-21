@@ -21,34 +21,21 @@ def index():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    error = ""
     form = LoginForm()
     if(form.validate_on_submit()):                
-        usuario = form.usuario.data
-        contrasena = form.contraseña.data
-        sql = f'SELECT * FROM user WHERE usuario = "{usuario}"'
         db = get_db()
+        user = form.user.data
+        password = form.password.data
         cursorObj = db.cursor()
-        cursorObj.execute(sql)       
-        usuarios = cursorObj.fetchall()
-        if len(usuarios) > 0:
-            contrasenaHas = usuarios[0][2]
-            if check_password_hash(contrasenaHas, contrasena):            
-                session.clear()
-                session['id'] = usuarios[0][0]
-                session['user'] = usuarios[0][1]
-                session['password'] = contrasenaHas            
-                return redirect(url_for('index'))
-            else:
-                flash(f'Clave incorrecta')
-                return redirect(url_for('login'))
-        else:
-                flash(f'El usuario ingresado no existe')             
-    return render_template("login.html", form=form)
+        cursorObj.execute('SELECT * FROM Person WHERE user = ? and password = ?', (user, password))
+        flash(f'Bienvenido(a) {user}')
+        return redirect(url_for('index'))
+    return render_template('login.html', form=form)
 
 @app.route('/signUp')
 def signup():
-    return render_template('signup.html')
+    form = AddUserForm()
+
 
 @app.route('/user/')
 def user():

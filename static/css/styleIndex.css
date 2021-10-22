@@ -1,0 +1,18 @@
+.padre {
+    background-color: #fafafa;
+    margin: 4rem;
+    padding: 3rem;
+    /* IMPORTANTE */
+    text-align: center;
+}
+
+.hijo {
+    background-color:#8C0D0D;
+    font-size: 30px;
+    border-radius: 12px;
+    border: 2px solid #8C0D0D;
+    width: 200px;
+    color: white
+    
+
+}

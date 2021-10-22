@@ -4,7 +4,7 @@ import os
 """ Importar los formularios """
 from forms.forms import *
 """ Importar flask """
-from flask import Flask, render_template, redirect, url_for, request
+from flask import Flask, render_template, redirect, url_for, request, session
 from forms.forms import BookFlightForm
 """ Para conectar con la base de datos """
 from db import *
@@ -25,46 +25,50 @@ def index():
 def login():
     form = LoginForm()
     if(form.validate_on_submit()):                
-        db = get_db()
         user = form.user.data
         password = form.password.data
+        sql = f'SELECT * FROM Person WHERE user = "{user}"'
+        db = get_db()
         cursorObj = db.cursor()
-        cursorObj.execute('SELECT * FROM Person WHERE user = ? and password = ?', (user, password))
+        cursorObj.execute(sql)
         users = cursorObj.fetchall()
-        if len(user) >0:
-            flash(f'Bienvenido(a) {user}')
-            return redirect(url_for('index'))
+        if len(users) > 0:
+            passwordHash = users[0][2]
+            if check_password_hash(passwordHash, password):
+                session.clear()
+                session['id'] = users[0][0]
+                session['user'] = users[0][1]
+                session['password'] = passwordHash
+                flash(f'Bienvenido(a) {user}')
+                return redirect(url_for('index'))
+            else:
+                flash('Clave incorrecta')
+                return redirect(url_for('login'))
         else:
-            flash(f'Usuario o clave inválida')
-            return redirect(url_for('login'))
+            flash('El usuario ingresado no existe')
     return render_template("login.html", form=form)
 
 @app.route('/signUp', methods=['GET', 'POST'])
 def signUp():
     form = SignUpForm()
     if request.method == 'POST':
-        Name = request.form['Name']
-        userName = request.form['userName']
-        userIdtf = request.form['userIdtf']
-        emailUser = request.form['emailUser']
-        passwordUser = request.form['passwordUser']
-        passwordUserHas = generate_password_hash(passwordUser)
-        sql = 'INSERT INTO Person (user, password) VALUES (?, ?) AND INSERT INTO Info (name, identification, email) VALUES (?, ?, ?)'
+        user = request.form['user']
+        password = request.form['password']
+        name = request.form['name']
+        identification = request.form['identification']
+        email = request.form['email']
+        passwordHash = generate_password_hash(password)
+        sql = 'INSERT INTO Person (user, password) VALUES (?, ?)'
+        sql2 = 'INSERT INTO Info (name, identification, email) VALUES (?, ?, ?)'
         db = get_db()
-        result = db.execute(sql, (user, passwordUserHas,)).rowcount
+        result = db.execute(sql, (user, passwordHash,)).rowcount
+        result = db.execute(sql2, (name, identification,email,)).rowcount
         db.commit()
         if result!=0:
             flash('Registro exitoso')
         else:
             flash('Woops! Hubo un error. Intenta nuevamente')
     return render_template('signUp.html', form=form)
-        flash(f'Bienvenido(a) {user}')
-        return redirect(url_for('index'))
-    return render_template('login.html', form=form)
-
-@app.route('/signUp')
-def signup():
-    form = AddUserForm()
 
 @app.route('/user/')
 def user():
@@ -141,11 +145,6 @@ def addFlight():
         db.execute('INSERT INTO Flight (depature, arrival, depatureTime, arrivalTime, plane, capacity, idStatus, idPerson) VALUES(?,?,?,?,?,?,?,?)',(depature, arrival, depatureTime, arrivalTime, plane, capacity, idStatus, idPerson))
         db.commit()
     return render_template('addFlight.html', form=form)
-
-@app.route('/addUser', methods=['GET','POST'])
-def addUser():
-    form = AddUserForm()
-    return render_template('addUser.html', form=form)
 
 @app.route('/manageUser', methods=['GET'])
 def manageUser():

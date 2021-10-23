@@ -26,7 +26,7 @@
         <h2 class="text-center">
           ¡Ingresa el código de tu vuelo para ver el detalle!
         </h2>
-        <form action="" method="post">
+        <form action="{{url_for('manageYourBooking')}}" method="post">
           {{ form.csrf_token }}
           <class class="format">
             <p class="leadtitle text-orange mb-4 mr-2">
@@ -71,7 +71,7 @@
               </tr>
           </thead>
           <tbody>
-              {% for f in flight %}
+              {% for f in vuelos %}
               <tr class="text-center">
                   <td>{{f[1]}}</td>
                   <td>{{f[2]}}</td>

@@ -39,8 +39,16 @@ def login():
                 session['id'] = users[0][0]
                 session['user'] = users[0][1]
                 session['password'] = passwordHash
-                flash(f'Bienvenido(a) {user}')
-                return redirect(url_for('index'))
+                session['idRol'] = users[0][3]
+                if session['idRol'] == 1:
+                    flash(f'Bienvenido(a) {user}')
+                    return redirect(url_for('user'))
+                elif session['idRol'] == 2:
+                    flash(f'Bienvenido(a) {user}')
+                    return redirect(url_for('pilot'))
+                else:
+                    flash(f'Bienvenido(a) {user}')
+                    return redirect(url_for('admin'))
             else:
                 flash('Clave incorrecta')
                 return redirect(url_for('login'))
@@ -58,10 +66,10 @@ def signUp():
         identification = request.form['identification']
         email = request.form['email']
         passwordHash = generate_password_hash(password)
-        sql = 'INSERT INTO Person (user, password) VALUES (?, ?)'
+        sql = 'INSERT INTO Person (user, password, idRol) VALUES (?, ?, ?)'
         sql2 = 'INSERT INTO Info (name, identification, email) VALUES (?, ?, ?)'
         db = get_db()
-        result = db.execute(sql, (user, passwordHash,)).rowcount
+        result = db.execute(sql, (user, passwordHash, 1)).rowcount
         result = db.execute(sql2, (name, identification,email,)).rowcount
         db.commit()
         if result!=0:
@@ -84,15 +92,40 @@ def bookFlight():
     flight = cursorObj.fetchall()
     return render_template('bookFlight.html',form=form, flight=flight)
 
+@app.route('/bookFlight', methods=["GET", "POST"])
+def searchBooking():
+    form = BookFlightForm()
+    if request.method == 'POST':
+        depature = request.form['depature']
+        arrival = request.form['arrival']
+        depatureTime = request.form['depatureTime']
+        print("Hola mundo", depature)
+        sql = f'SELECT * FROM Flight WHERE depature LIKE "%{depature}%" AND arrival LIKE "%{arrival}%" AND depatureTime LIKE "%{depatureTime}%"'
+        db = get_db()
+        cursorObj = db.cursor()
+        cursorObj.execute(sql)
+        flight = cursorObj.fetchall()
+        print(flight)
+    return render_template("bookFlight.html",flight=flight,form=form)
+
 @app.route('/searchFlight', methods=["GET", "POST"])
 def searchFlight():
     form = SearchFlightForm()
-    sql = "SELECT * FROM Flight INNER JOIN Status ON Status.name = Flight.idStatus"
-    db = get_db()
-    cursorObj = db.cursor()
-    cursorObj.execute(sql)
-    flight = cursorObj.fetchall()
-    return render_template('searchFlight.html', form=form, flight=flight)
+    return render_template('searchFlight.html',form=form)
+
+@app.route('/manageYourBooking', methods=["GET", "POST"])
+def manageYourBooking():
+    form = SearchFlightForm()
+    if request.method == 'POST':
+        idFlight = request.form['idFlight']
+        print("Hola mundo", idFlight)
+        sql = f'SELECT * FROM Flight WHERE id LIKE "%{idFlight}%" '
+        db = get_db()
+        cursorObj = db.cursor()
+        cursorObj.execute(sql)
+        vuelos = cursorObj.fetchall()
+        print(vuelos)
+    return render_template('searchFlight.html', form=form, vuelos=vuelos)
 
 @app.route('/rateFlight', methods=["GET", "POST"])
 def rateFlight():
@@ -108,22 +141,27 @@ def rateFlight():
         return redirect(url_for('rateFlight', mensajeExitoso=mensajeExitoso))
     return render_template('rateFlight.html', form=form)
 
-@app.route('/flights')
-def flights():
-    return render_template('flights.html')
-    
 @app.route('/pilot', methods=["GET", "POST"])
 def pilot():
+    if 'user' in session and (session['idRol'] == 2):
+        form = SearchFlightPilotForm()
+        return render_template('pilot.html', form=form)
+    else:
+        return redirect('login')
+
+@app.route('/manageYourFlights', methods=["GET", "POST"])
+def manageYourFlights():
     form = SearchFlightPilotForm()
-    if(form.validate_on_submit()):
-        idPerson = form.idPerson.data
+    if request.method == 'POST':
+        idPerson = request.form['idPerson']
         print("Hola mundo", idPerson)
+        sql = f'SELECT * FROM Flight WHERE idPerson LIKE "%{idPerson}%"'
         db = get_db()
         cursorObj = db.cursor()
-        cursorObj.execute('SELECT * FROM Flight WHERE idPerson = ?',(idPerson,))
-        flights = cursorObj.fetchall()
-        print(flights)
-    return render_template("pilot.html",form=form)
+        cursorObj.execute(sql)
+        flight = cursorObj.fetchall()
+        print(flight)
+    return render_template("pilot.html", form=form, flight=flight)
 
 @app.route('/admin')
 def admin():

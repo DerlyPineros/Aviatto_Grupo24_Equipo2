@@ -13,8 +13,7 @@ class BookFlightForm(FlaskForm):
 
 """ Crear formulario Search Flight """
 class SearchFlightForm(FlaskForm):
-    idFlight = StringField(u'Código de vuelo', validators=[DataRequired()])
-    depatureTime = DateField("Salida", validators=[DataRequired()], format='%d/%m/%y')
+    idFlight = IntegerField(u'Código de vuelo', validators=[DataRequired()])
 
 """ Crear formulario Rate Flight """
 class RateFlightForm(FlaskForm):
@@ -31,7 +30,7 @@ class AddFlightForm(FlaskForm):
     depature = SelectField(u'Desde', validators=[DataRequired()], choices=[('1', ''),('Barranquilla', 'Barranquilla'), ('Bogotá', 'Bogotá'), ('Bucaramanga', 'Bucaramanga'), ('Cartagena', 'Cartagena'), ('Medellín', 'Medellín') ])
     arrival = SelectField(u'Hacia', validators=[DataRequired()], choices=[('1', ''),('Barranquilla', 'Barranquilla'), ('Bogotá', 'Bogotá'), ('Bucaramanga', 'Bucaramanga'), ('Cartagena', 'Cartagena'), ('Medellín', 'Medellín') ])
     depatureTime = DateField("Salida", validators=[DataRequired()], format='%d/%m/%y')
-    arrivalTime = DateField("Salida", validators=[DataRequired()], format='%d/%m/%y')
+    arrivalTime = DateField("Llegada", validators=[DataRequired()], format='%d/%m/%y')
     plane = StringField(u'Aeronave', validators=[DataRequired()])
     capacity = IntegerField(u'Capacidad', validators=[DataRequired()])
     idStatus = SelectField(u'Desde', validators=[DataRequired()], choices=[('1', 'A tiempo'),('2', 'Retrasado'), ('3', 'Aterrizado'), ('4', 'Despegado')])

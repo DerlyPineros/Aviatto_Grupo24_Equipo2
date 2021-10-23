@@ -24,7 +24,7 @@
     <div class="card-body">
       <div class="row gx-4 justify-content-center">
         <h2 class="text-center">¡Ingresa tu código de piloto para ver el detalle de tus vuelos asignados!</h2>
-          <form action="" method="post">
+          <form action="{{url_for('manageYourFlights')}}" method="post">
             {{ form.csrf_token }}
             <class class="format">
               <p class="leadtitle text-orange mb-4 mr-2">Consulta tus vuelos</p>

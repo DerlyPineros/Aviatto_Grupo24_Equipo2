@@ -17,11 +17,7 @@ app = Flask(__name__)
 """ metodo para usar el token """
 app.secret_key = os.urandom(24)
 
-@app.route('/', methods=['GET'])
-def index():
-    return render_template ('index.html')
-
-@app.route('/login', methods=['GET', 'POST'])
+@app.route('/', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
     if(form.validate_on_submit()):                

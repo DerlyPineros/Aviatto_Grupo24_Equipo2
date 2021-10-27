@@ -842,6 +842,12 @@ ul ol {
   color: #072040;
 }
 
+.success {
+  /* Título mensaje exitoso */
+  color: #fff;
+  background-color: #198754;
+}
+
 /* Edición de color de tap */
 .text-white {
   /* Título principal */

@@ -1,0 +1,77 @@
+<!-- Aquí extiendo el layout -->
+{% extends 'layout.html' %} {% block body %}
+<!-- Header-->
+<link
+  rel="stylesheet"
+  href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+  integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+  crossorigin="anonymous"
+/>
+<header class="bg-white">
+  <div class="container px-7">
+    <div class="row gx-5">
+      <div class="col-lg-6">
+        <div class="text-center">
+          <h1 class="display-5 fw-bolder text-blue mb-2">
+            Módulo principal de configuraciones
+          </h1>
+          <!-- mb-2 de esta frase a la siguiente linea -->
+          <p class="lead text-blue mb-4">
+            ¡Aquí puedes editar o eliminar vuelos!
+          </p>
+          {% for msg in get_flashed_messages() %}
+          <p class="lead success mb-4">{{msg}}</p>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+    <div class="justify-content-center">
+        <table class="table table-hover text-blue">
+            <thead class="table-dark">
+                <tr>
+                    <th>id</th>
+                    <th>Salida</th>
+                    <th>Destino</th>
+                    <th>Fecha de Salida</th>
+                    <th>Fecha de Destino</th>
+                    <th>Aeronave</th>
+                    <th>Capacidad</th>
+                    <th>Status</th>
+                    <th>Piloto</th>
+                    <th>¿Quieres editar?</th>
+                    <th>¿Quieres eliminar?</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for f in flight %}
+                <tr class="text-center">
+                    <td>{{f[0]}}</td>
+                    <td>{{f[1]}}</td>
+                    <td>{{f[2]}}</td>
+                    <td>{{f[3]}}</td>
+                    <td>{{f[4]}}</td>
+                    <td>{{f[5]}}</td>
+                    <td>{{f[6]}}</td>
+                    <td>{{f[7]}}</td>
+                    <td>{{f[8]}}</td>
+                    <td class="text-center"><a class="btn2 justify-content-center" href="{{ url_for('editFlight', id = f[0]) }}">Editar</a></td>
+                    <td class="text-center"><a class="btn2 justify-content-center" href="{{ url_for('deleteFlight', id = f[0]) }}">Eliminar</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+  </div>
+
+  <footer class="py-5 bg-dark">
+    <div class="container px-3"><p class="m-0 text-center text-white">Copyright Your Website 2021</p></div>
+  </footer>
+  
+    <!-- Aquí cierro el layout -->
+  
+    {% endblock body %}
+  

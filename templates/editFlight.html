@@ -1,0 +1,95 @@
+<!-- Aquí extiendo el layout -->
+{% extends 'layout.html' %} {% block body %}
+<!-- Header-->
+<header class="bg-white">
+  <div class="container px-7">
+    <div class="row gx-5">
+      <div class="col-lg-6">
+        <div class="text-center">
+          <h1 class="display-5 fw-bolder text-blue mb-2">
+            Módulo principal de configuraciones
+          </h1>
+          <!-- mb-2 de esta frase a la siguiente linea -->
+          <p class="lead text-blue mb-4">
+            ¡Selecciona una opción y gestiona!
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="container px-7">
+  <div class="card" style="width: 75rem">
+    <div class="card-body">
+      <div class="row gx-4 justify-content-center">
+        <h2 class="text-center">¡Estás a punto de editar un vuelo!</h2>
+          <form action="{{url_for('editFlight')}}" method="post">
+            {{ form.csrf_token }}
+            <class class="format">
+              <div class="form-group">
+                <div class="leadseccion mb-3 mr-2">
+                  {{ form.depature.label}} {{
+                  form.depature(value = flight[1], class="form-control")}}
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="leadseccion mb-3 mr-2">
+                  {{ form.arrival.label}} {{
+                  form.arrival(value = flight[2], class="form-control")}}
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="leadseccion mb-3 mr-2">
+                  {{ form.depatureTime.label}} {{
+                  form.depatureTime(value = flight[3], class="form-control")}}
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="leadseccion mb-3 mr-2">
+                  {{ form.arrivalTime.label}} {{
+                  form.arrivalTime(value = flight[4], class="form-control")}}
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="leadseccion mb-3 mr-2">
+                  {{ form.plane.label}} {{
+                  form.plane(value = flight[5], class="form-control")}}
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="leadseccion mb-3 mr-2">
+                  {{ form.capacity.label}} {{
+                  form.capacity(value = flight[6], class="form-control")}}
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="leadseccion mb-3 mr-2">
+                  {{ form.idStatus.label}} {{
+                  form.idStatus(value = flight[7], class="form-control")}}
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="leadseccion mb-3 mr-2">
+                  {{ form.idPerson.label}} {{
+                  form.idPerson(value = flight[8], class="form-control")}}
+                </div>
+              </div>
+            </class>
+            <div class="text-center">
+                <!-- El input reconoce el id del producto que se va a editar. Línea 210 de editFlight.html -->
+                <input type="text" value="{{flight[0]}}" name="id" hidden>
+                <button class="btn" type="submit">Editar vuelo</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+</div>
+<footer class="py-5 bg-dark">
+  <div class="container px-3"><p class="m-0 text-center text-white">Copyright Your Website 2021</p></div>
+</footer>
+
+  <!-- Aquí cierro el layout -->
+
+  {% endblock body %}

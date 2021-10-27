@@ -139,11 +139,8 @@ def rateFlight():
 
 @app.route('/pilot', methods=["GET", "POST"])
 def pilot():
-    if 'user' in session and (session['idRol'] == 2):
-        form = SearchFlightPilotForm()
-        return render_template('pilot.html', form=form)
-    else:
-        return redirect('login')
+    form = SearchFlightPilotForm()
+    return render_template('pilot.html', form=form)
 
 @app.route('/manageYourFlights', methods=["GET", "POST"])
 def manageYourFlights():
@@ -163,6 +160,10 @@ def manageYourFlights():
 def admin():
     return render_template('admin.html')
 
+@app.route('/manageFlight')
+def manageFlight():
+    return render_template('manageFlight.html')
+
 @app.route('/addFlight', methods=['GET','POST'])
 def addFlight():
     form = AddFlightForm()
@@ -179,6 +180,64 @@ def addFlight():
         db.execute('INSERT INTO Flight (depature, arrival, depatureTime, arrivalTime, plane, capacity, idStatus, idPerson) VALUES(?,?,?,?,?,?,?,?)',(depature, arrival, depatureTime, arrivalTime, plane, capacity, idStatus, idPerson))
         db.commit()
     return render_template('addFlight.html', form=form)
+
+@app.route('/flights')
+def flights():
+    sql = f'SELECT * FROM Flight'
+    db = get_db()
+    cursorObj = db.cursor()
+    cursorObj.execute(sql)
+    flight = cursorObj.fetchall()
+    return render_template('flights.html', flight=flight)
+
+@app.route('/editFlight', methods=['GET','POST'])
+def editFlight():
+    id = request.args.get('id')
+    if request.method == 'GET':
+        form = AddFlightForm()
+        db = get_db()
+        sql = f'SELECT * FROM Flight WHERE id = {id}'
+        cursorObj = db.cursor()
+        cursorObj.execute(sql)
+        flight = cursorObj.fetchall()[0]
+        print(flight)
+        return render_template('editFlight.html', form=form, flight=flight)
+
+    if request.method == 'POST':
+        id = request.form['id']
+        print(id)
+        depature = request.form['depature']
+        arrival = request.form['arrival']
+        depatureTime = request.form['depatureTime']
+        arrivalTime = request.form['arrivalTime']
+        plane = request.form['plane']
+        capacity = request.form['capacity']
+        idStatus = request.form['idStatus']
+        idPerson = request.form['idPerson']
+        db = get_db()
+        sql = 'UPDATE Flight SET depature = ?, arrival = ?, depatureTime = ?, arrivalTime = ?, plane = ?, capacity = ?, idStatus = ?, idPerson = ? WHERE id = ?'
+        result = db.execute(sql, (depature, arrival, depatureTime, arrivalTime, plane, capacity, idStatus, idPerson, id)).rowcount
+        db.commit()
+        if result > 0:
+            flash('Actualizaste el vuelo exitosamente')
+            print("okeeeeyyy")
+        else:
+            flash('No se pudo actualizar el vuelo')
+            print("NOOOOO")            
+        return redirect(url_for('flights'))
+
+@app.route('/deleteFlight', methods=['GET','POST'])
+def deleteFlight():
+    id = request.args.get('id')
+    print(id)
+    sql = 'DELETE FROM Flight WHERE id = ?'
+    db = get_db()
+    db.execute(sql, (id))
+    db.commit()
+    db.close()
+    db = get_db()
+    flash('Eliminaste el vuelo exitosamente')
+    return redirect(url_for('flights'))
 
 @app.route('/manageUser', methods=['GET'])
 def manageUser():

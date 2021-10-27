@@ -30,23 +30,17 @@
     <div class="card-body">
       <div class="row gx-4 justify-content-center">
         <h2 class="text-center">¿Qué desea hacer?</h2>
-          <class action="">
-            <div class="text-center">
-                <button class="btn" type="submit">Crear usuario
-                <i class="fas fa-user-plus"></i>
-                </button>
-            </div>
-            <div class="text-center">
-                <button class="btn" type="submit">Editar usuario
-                    <i class="fas fa-user-pen"></i>
-                </button>
+        <div class="container">
+          <div class="row">
+              <div class="text-center" class="col">
+                <a href="{{ url_for('addUser') }}" class="btn btn-info" role="button">Crear usuario</a>
               </div>
-              <div class="text-center">
-                <button class="btn" type="submit">Eliminar usuario
-                    <i class="fas fa-user-minus"></i>
-                </button>
-              </div>
-          </class>
+              <div class="text-center" class="col">
+                <a href="{{ url_for('editUser') }}" class="btn btn-info" role="button">Editar o eliminar usuario</a>
+                </div>
+          </div>
+        </class>
+      </div>
         </div>
       </div>
     </div>

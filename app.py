@@ -243,12 +243,63 @@ def deleteFlight():
 def manageUser():
     return render_template('manageUser.html')
 
+@app.route('/addUser', methods=['GET','POST'])
+def addUser():
+    form = AddUserForm()
+    if request.method == 'POST':
+        user = request.form['user']
+        password = request.form['password']
+        name = request.form['name']
+        identification = request.form['identification']
+        email = request.form['email']
+        passwordHash = generate_password_hash(password)
+        sql = 'INSERT INTO Person (user, password, idRol) VALUES (?, ?, ?)'
+        sql2 = 'INSERT INTO Info (name, identification, email) VALUES (?, ?, ?)'
+        db = get_db()
+        result = db.execute(sql, (user, passwordHash, 1)).rowcount
+        result = db.execute(sql2, (name, identification,email,)).rowcount
+        db.commit()
+        if result!=0:
+            flash('Registro exitoso')
+        else:
+            flash('Woops! Hubo un error. Intenta nuevamente')
+    return render_template('addUser.html', form=form)
+
 @app.route('/editUser', methods=['GET','POST'])
 def editUser():
     form = EditUserForm()
     return render_template('editUser.html', form=form)
 
-@app.route('/deleteUser', methods=['GET','POST'])
-def deleteUser():
-    form = DeleteUserForm()
-    return render_template('deleteUser.html', form=form)
+@app.route('/managePilot', methods=['GET'])
+def managePilot():
+    return render_template('managePilot.html')
+
+@app.route('/addPilot', methods=['GET','POST'])
+def addPilot():
+    form = AddPilotForm()
+    if request.method == 'POST':
+        user = request.form['user']
+        password = request.form['password']
+        name = request.form['name']
+        identification = request.form['identification']
+        email = request.form['email']
+        passwordHash = generate_password_hash(password)
+        sql = 'INSERT INTO Person (user, password, idRol) VALUES (?, ?, ?)'
+        sql2 = 'INSERT INTO Info (name, identification, email) VALUES (?, ?, ?)'
+        db = get_db()
+        result = db.execute(sql, (user, passwordHash, 1)).rowcount
+        result = db.execute(sql2, (name, identification,email,)).rowcount
+        db.commit()
+        if result!=0:
+            flash('Registro exitoso')
+        else:
+            flash('Woops! Hubo un error. Intenta nuevamente')
+    return render_template('addPilot.html', form=form)
+
+@app.route('/editPilot', methods=['GET'])
+def editPilot():
+    return render_template('editPilot.html')
+
+@app.route('/deletePilot', methods=['GET'])
+def deletePilot():
+    return render_template('deletePilot.html')

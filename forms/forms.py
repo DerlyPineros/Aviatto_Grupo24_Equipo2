@@ -38,10 +38,11 @@ class AddFlightForm(FlaskForm):
 
 """ Crear formulario Add User """
 class AddUserForm(FlaskForm):
+    user = StringField(u'Usuario', validators=[DataRequired()])
+    password = StringField(u'Contraseña', validators=[DataRequired()])
     name = StringField(u'Nombre', validators=[DataRequired()])
-    userName = StringField(u'Usuario', validators=[DataRequired()])
-    emailUser= StringField(u'E-mail', validators=[DataRequired()])
-    passwordUser = StringField(u'Contraseña', validators=[DataRequired()])
+    identification = IntegerField(u'Identificación', validators=[DataRequired()])
+    email = StringField(u'E-mail', validators=[DataRequired()])
 
 """ Crear formulario Edit User """
 class EditUserForm(FlaskForm):
@@ -59,6 +60,14 @@ class LoginForm(FlaskForm):
 
 """ Crear formulario Sign Up """
 class SignUpForm(FlaskForm):
+    user = StringField(u'Usuario', validators=[DataRequired()])
+    password = StringField(u'Contraseña', validators=[DataRequired()])
+    name = StringField(u'Nombre', validators=[DataRequired()])
+    identification = IntegerField(u'Identificación', validators=[DataRequired()])
+    email = StringField(u'E-mail', validators=[DataRequired()])
+
+""" Crear formulario Add Pilot """
+class AddPilotForm(FlaskForm):
     user = StringField(u'Usuario', validators=[DataRequired()])
     password = StringField(u'Contraseña', validators=[DataRequired()])
     name = StringField(u'Nombre', validators=[DataRequired()])

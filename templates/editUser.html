@@ -26,19 +26,37 @@
         <h2 class="text-center">
           ¡Ingresa el usuario que desea editar!
         </h2>
-        <form action="" method="post">
+        <form action="{{url_for('editUser')}}" method="post">
           {{ form.csrf_token }}
           <class class="format">
             <div class="form-group">
               <div class="leadseccion mb-3 mr-2">
-                {{ form.userName.label}} {{
-                form.userName(class="form-control")}}
+                {{ form.name.label}} {{form.name(value = user[5], class="form-control")}}
               </div>
             </div>
-            <div class="text-center">
-              <button class="btn" type="submit">Buscar usuario</button>
+            <div class="form-group">
+              <div class="leadseccion mb-3 mr-2">
+                {{ form.email.label}} {{
+                form.email(value = user[7], class="form-control")}}
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="leadseccion mb-3 mr-2">
+                {{ form.identification.label}} {{
+                form.identification(value = user[6], class="form-control")}}
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="leadseccion mb-3 mr-2">
+                {{ form.user.label}} {{
+                form.user(value = user[1], class="form-control")}}
+              </div>
             </div>
           </class>
+          <div class="text-center">
+              <input type="text" value="{{user[0]}}" name="id" hidden>
+            <button class="btn" type="submit">Editar usuario</button>
+          </div>
         </form>
       </div>
     </div>

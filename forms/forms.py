@@ -44,10 +44,6 @@ class AddUserForm(FlaskForm):
     identification = IntegerField(u'Identificación', validators=[DataRequired()])
     email = StringField(u'E-mail', validators=[DataRequired()])
 
-""" Crear formulario Edit User """
-class EditUserForm(FlaskForm):
-    userName = StringField(u'Usuario', validators=[DataRequired()])
-
 """ Crear formulario Delete User """
 class DeleteUserForm(FlaskForm):
     userName = StringField(u'Usuario', validators=[DataRequired()])

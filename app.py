@@ -115,7 +115,7 @@ def manageYourBooking():
     if request.method == 'POST':
         idFlight = request.form['idFlight']
         print("Hola mundo", idFlight)
-        sql = f'SELECT * FROM Flight WHERE id LIKE "%{idFlight}%" '
+        sql = f'SELECT Flight.depature, Flight.arrival, Flight.depatureTime, Flight.arrivalTime, Status.name FROM Flight JOIN Status ON Flight.idStatus = Status.id WHERE Flight.id LIKE "%{idFlight}%" '
         db = get_db()
         cursorObj = db.cursor()
         cursorObj.execute(sql)
@@ -148,7 +148,7 @@ def manageYourFlights():
     if request.method == 'POST':
         idPerson = request.form['idPerson']
         print("Hola mundo", idPerson)
-        sql = f'SELECT * FROM Flight WHERE idPerson LIKE "%{idPerson}%"'
+        sql = f'SELECT Flight.id, Flight.depature, Flight.arrival, Flight.depatureTime, Flight.arrivalTime, Flight.plane, Flight.capacity, Status.name, Flight.idPerson FROM Flight JOIN Status ON Flight.idStatus = Status.id WHERE idPerson LIKE "%{idPerson}%"'
         db = get_db()
         cursorObj = db.cursor()
         cursorObj.execute(sql)
@@ -265,10 +265,48 @@ def addUser():
             flash('Woops! Hubo un error. Intenta nuevamente')
     return render_template('addUser.html', form=form)
 
+@app.route('/users', methods=['GET','POST'])
+def users():
+    sql = f'SELECT * FROM Person INNER JOIN Info ON Person.id = Info.id WHERE Person.idRol = 1'
+    db = get_db()
+    cursorObj = db.cursor()
+    cursorObj.execute(sql)
+    user = cursorObj.fetchall()
+    return render_template('users.html', user=user)
+
 @app.route('/editUser', methods=['GET','POST'])
 def editUser():
-    form = EditUserForm()
-    return render_template('editUser.html', form=form)
+    id = request.args.get('id')
+    if request.method == 'GET':
+        form = AddUserForm()
+        db = get_db()
+        sql = f'SELECT * FROM Person INNER JOIN Info ON Person.id = Info.id WHERE Person.id = {id} AND Person.idRol = 1'
+        cursorObj = db.cursor()
+        cursorObj.execute(sql)
+        user = cursorObj.fetchall()[0]
+        print(user)
+        return render_template('editUser.html', form=form, user=user)
+
+    if request.method == 'POST':
+        id = request.form['id']
+        print(id)
+        user = request.form['user']
+        name = request.form['name']
+        identification = request.form['identification']
+        email = request.form['email']
+        db = get_db()
+        sql = 'UPDATE Person SET user = ? WHERE id = ?'
+        sql1 = 'UPDATE Info SET name = ?, identification = ?, email = ? WHERE id = ?'
+        result = db.execute(sql, (user, id)).rowcount
+        result1 = db.execute(sql1, (name, identification, email, id)).rowcount
+        db.commit()
+        if result > 0:
+            flash('Actualizaste el usuario exitosamente')
+            print("okeeeeyyy")
+        else:
+            flash('No se pudo actualizar el usuario')
+            print("NOOOOO")          
+        return redirect(url_for('pilots'))
 
 @app.route('/deleteUser', methods=['GET','POST'])
 def deleteUser():
@@ -284,15 +322,6 @@ def deleteUser():
     db = get_db()
     flash('Eliminaste el usuario exitosamente')
     return redirect(url_for('users'))
-
-@app.route('/users', methods=['GET','POST'])
-def users():
-    sql = f'SELECT * FROM Person JOIN Info'
-    db = get_db()
-    cursorObj = db.cursor()
-    cursorObj.execute(sql)
-    user = cursorObj.fetchall()
-    return render_template('users.html', user=user)
 
 @app.route('/managePilot', methods=['GET'])
 def managePilot():
@@ -320,9 +349,49 @@ def addPilot():
             flash('Woops! Hubo un error. Intenta nuevamente')
     return render_template('addPilot.html', form=form)
 
+@app.route('/pilots', methods=['GET','POST'])
+def pilots():
+    sql = f'SELECT * FROM Person INNER JOIN Info ON Person.id = Info.id WHERE Person.idRol = 1'
+    db = get_db()
+    cursorObj = db.cursor()
+    cursorObj.execute(sql)
+    pilot = cursorObj.fetchall()
+    print(pilot)
+    return render_template('pilots.html', pilot=pilot)
+
 @app.route('/editPilot', methods=['GET', 'POST'])
 def editPilot():
-    return render_template('editPilot.html')
+    id = request.args.get('id')
+    if request.method == 'GET':
+        form = AddPilotForm()
+        db = get_db()
+        sql = f'SELECT * FROM Person INNER JOIN Info ON Person.id = Info.id WHERE Person.id = {id} AND Person.idRol = 1'
+        cursorObj = db.cursor()
+        cursorObj.execute(sql)
+        pilot = cursorObj.fetchall()[0]
+        print(pilot)
+        return render_template('editPilot.html', form=form, pilot=pilot)
+
+    if request.method == 'POST':
+        id = request.form['id']
+        print(id)
+        user = request.form['user']
+        name = request.form['name']
+        identification = request.form['identification']
+        email = request.form['email']
+        db = get_db()
+        sql = 'UPDATE Person SET user = ? WHERE id = ?'
+        sql1 = 'UPDATE Info SET name = ?, identification = ?, email = ? WHERE id = ?'
+        result = db.execute(sql, (user, id)).rowcount
+        result1 = db.execute(sql1, (name, identification, email, id)).rowcount
+        db.commit()
+        if result > 0:
+            flash('Actualizaste el piloto exitosamente')
+            print("okeeeeyyy")
+        else:
+            flash('No se pudo actualizar el piloto')
+            print("NOOOOO")          
+        return redirect(url_for('pilots'))
 
 @app.route('/deletePilot', methods=['GET', 'POST'])
 def deletePilot():
@@ -338,12 +407,3 @@ def deletePilot():
     db = get_db()
     flash('Eliminaste el piloto exitosamente')
     return redirect(url_for('pilots'))
-
-@app.route('/pilots', methods=['GET','POST'])
-def pilots():
-    sql = f'SELECT * FROM Person JOIN Info'
-    db = get_db()
-    cursorObj = db.cursor()
-    cursorObj.execute(sql)
-    pilot = cursorObj.fetchall()
-    return render_template('pilots.html', pilot=pilot)

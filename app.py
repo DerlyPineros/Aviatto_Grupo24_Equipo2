@@ -270,6 +270,30 @@ def editUser():
     form = EditUserForm()
     return render_template('editUser.html', form=form)
 
+@app.route('/deleteUser', methods=['GET','POST'])
+def deleteUser():
+    id = request.args.get('id')
+    print(id)
+    sql = 'DELETE FROM Person WHERE id = ?'
+    sql2 = 'DELETE FROM Info WHERE id = ?'
+    db = get_db()
+    db.execute(sql, (id))
+    db.execute(sql2, (id))
+    db.commit()
+    db.close()
+    db = get_db()
+    flash('Eliminaste el usuario exitosamente')
+    return redirect(url_for('users'))
+
+@app.route('/users', methods=['GET','POST'])
+def users():
+    sql = f'SELECT * FROM Person JOIN Info'
+    db = get_db()
+    cursorObj = db.cursor()
+    cursorObj.execute(sql)
+    user = cursorObj.fetchall()
+    return render_template('users.html', user=user)
+
 @app.route('/managePilot', methods=['GET'])
 def managePilot():
     return render_template('managePilot.html')
@@ -296,10 +320,30 @@ def addPilot():
             flash('Woops! Hubo un error. Intenta nuevamente')
     return render_template('addPilot.html', form=form)
 
-@app.route('/editPilot', methods=['GET'])
+@app.route('/editPilot', methods=['GET', 'POST'])
 def editPilot():
     return render_template('editPilot.html')
 
-@app.route('/deletePilot', methods=['GET'])
+@app.route('/deletePilot', methods=['GET', 'POST'])
 def deletePilot():
-    return render_template('deletePilot.html')
+    id = request.args.get('id')
+    print(id)
+    sql = 'DELETE FROM Person WHERE id = ?'
+    sql2 = 'DELETE FROM Info WHERE id = ?'
+    db = get_db()
+    db.execute(sql, (id))
+    db.execute(sql2, (id))
+    db.commit()
+    db.close()
+    db = get_db()
+    flash('Eliminaste el piloto exitosamente')
+    return redirect(url_for('pilots'))
+
+@app.route('/pilots', methods=['GET','POST'])
+def pilots():
+    sql = f'SELECT * FROM Person JOIN Info'
+    db = get_db()
+    cursorObj = db.cursor()
+    cursorObj.execute(sql)
+    pilot = cursorObj.fetchall()
+    return render_template('pilots.html', pilot=pilot)

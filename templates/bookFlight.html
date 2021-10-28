@@ -87,9 +87,9 @@
 <div class="container px-7">
   <div class="row gx-5">
       <div class="text-center">
-        <h1 class="display-5 fw-bolder text-blue mb-4">
-          ¡Tenemos estos vuelos para ti!
-        </h1>
+          {% for msg in get_flashed_messages() %}
+          <p class="display-5 fw-bolder text-blue mb-4">{{msg}}</p>
+          {% endfor %}
       </div>
   </div>
 </div>

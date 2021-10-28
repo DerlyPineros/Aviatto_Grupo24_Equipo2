@@ -176,6 +176,48 @@ body {
   background-color: transparent;
 }
 
+.btn3 {
+  display: inline-block;
+  font-weight: 450;
+  line-height: 2;
+  color: #fff;
+  text-align: center;
+  text-decoration: none;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-color: #072040;
+  border-color: #072040;
+  border: 1px solid transparent;
+  padding: 3px 31px;
+  font-size: 1.25rem;
+  border-radius: 0.6rem;
+  margin: 0 0 -1px;
+  gap: 2rem;
+  margin-right: 6px;
+  margin-bottom: 2rem;
+}
+
+.btn3:before {
+  font-family: var(--bs-body-font-family);
+  font-weight: normal;
+  margin-right: 10px;
+}
+
+.btn3:hover {
+  color: #fff;
+  background-color: #ff6700;
+  border-color: #ff6700;
+}
+
+.btn3ali {
+  display: inline-block;
+  justify-content: center;
+}
+
 hr {
   margin: 1rem 0;
   color: inherit;
@@ -840,6 +882,10 @@ ul ol {
 .text-blue {
   /* Título principal */
   color: #072040;
+}
+
+.text-red{
+  color: #8c0d0d;
 }
 
 .success {

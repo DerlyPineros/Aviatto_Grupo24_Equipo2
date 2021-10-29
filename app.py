@@ -164,7 +164,7 @@ def rateFlight():
 
 @app.route('/pilot', methods=["GET", "POST"])
 def pilot():
-    if 'user' in session and (session['idRol'] == 2):
+    if 'user' in session and (session['idRol'] == 2 or session['idRol'] == 3):
         form = SearchFlightPilotForm()
         return render_template('pilot.html', form=form)
     else:
@@ -172,7 +172,7 @@ def pilot():
 
 @app.route('/manageYourFlights', methods=["GET", "POST"])
 def manageYourFlights():
-    if 'user' in session and (session['idRol'] == 2):
+    if 'user' in session and (session['idRol'] == 2 or session['idRol'] == 3):
         form = SearchFlightPilotForm()
         if request.method == 'POST':
             idPerson = request.form['idPerson']
